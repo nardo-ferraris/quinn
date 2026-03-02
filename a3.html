@@ -3,195 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Diario di Quinn - Analisi del Benessere Digitale</title>
+    <title>Laboratorio: Il Diario di Quinn (A3)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400;600&family=Permanent+Marker&display=swap');
         
         body {
-            background-color: #f3f4f6;
+            background-color: #e5e7eb;
             font-family: 'Inter', sans-serif;
+            padding: 20px;
+        }
+
+        .a3-landscape {
+            width: 420mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 15mm;
+            box-shadow: 0 0 40px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: 280mm 1fr;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feed-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 15px;
+            border-right: 2px dashed #cbd5e1;
+            padding-right: 20px;
+        }
+
+        .post-slot {
+            border: 3px dashed #94a3b8;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .post-slot::after {
+            content: 'INCOLLA O DISEGNA IL POST QUI';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #cbd5e1;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-align: center;
+            z-index: 0;
+        }
+
+        .analysis-box {
+            background: #fff;
+            border: 2px solid #1e293b;
+            padding: 10px;
+            margin-top: auto;
+            z-index: 1;
+        }
+
+        .marker-font {
+            font-family: 'Permanent Marker', cursive;
         }
 
         .handwritten {
             font-family: 'Caveat', cursive;
         }
 
-        .a3-page {
-            width: 420mm;
-            height: 297mm;
-            background: white;
-            margin: 20px auto;
-            padding: 20mm;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: auto 1fr auto;
-            gap: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
         @media print {
-            body { background: none; margin: 0; }
-            .a3-page { box-shadow: none; margin: 0; }
+            body { background: white; padding: 0; }
+            .a3-landscape { box-shadow: none; margin: 0; }
             .no-print { display: none; }
         }
 
-        .sticky-note {
-            background: #fef3c7;
-            transform: rotate(-1deg);
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
-        }
-
-        .dark-pattern-alert {
-            border-left: 4px solid #ef4444;
-            background: #fee2e2;
-        }
-
-        .dopamine-loop {
-            border-left: 4px solid #3b82f6;
-            background: #dbeafe;
-        }
+        .tag-red { @apply bg-red-100 text-red-700 border-red-200; }
+        .tag-blue { @apply bg-blue-100 text-blue-700 border-blue-200; }
     </style>
 </head>
 <body>
 
-    <div class="no-print p-4 bg-gray-800 text-white flex justify-between items-center">
-        <h1 class="text-lg font-bold uppercase tracking-widest">Laboratorio Educazione Civica: Il Caso Quinn</h1>
-        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm font-bold transition">STAMPA IN A3</button>
+    <div class="no-print mb-6 flex justify-center gap-4">
+        <button onclick="window.print()" class="bg-indigo-600 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-indigo-700 transition">
+            🖨️ Stampa Foglio di Lavoro A3
+        </button>
     </div>
 
-    <div class="a3-page" id="capture-area">
+    <div class="a3-landscape">
         
-        <!-- HEADER -->
-        <div class="col-span-3 border-b-2 border-gray-900 pb-4 flex justify-between items-end">
-            <div>
-                <h2 class="text-4xl font-black text-gray-900 uppercase">Il Diario di Quinn</h2>
-                <p class="text-gray-500 italic">Analisi delle Architetture della Persuasione - Oggetto: Smartphone</p>
+        <!-- PARTE SINISTRA: IL FEED DI QUINN (POST DA INSERIRE) -->
+        <div class="flex flex-col">
+            <div class="mb-6 flex justify-between items-start">
+                <div>
+                    <h1 class="text-5xl font-black uppercase tracking-tighter text-indigo-900">Il Feed di Quinn</h1>
+                    <p class="text-xl text-gray-500 italic">Laboratorio di Analisi delle Interfacce Persuasive</p>
+                </div>
+                <div class="border-4 border-black p-4 rotate-2">
+                    <p class="font-bold text-sm uppercase">Studente:</p>
+                    <div class="w-48 border-b-2 border-black h-6"></div>
+                </div>
             </div>
-            <div class="text-right">
-                <p class="font-bold">Studente/Gruppo: ___________________________</p>
-                <p class="text-sm text-gray-400">Data: 02/03/2026</p>
+
+            <div class="feed-container h-full">
+                <!-- POST 1 -->
+                <div class="post-slot">
+                    <div class="analysis-box">
+                        <p class="text-[10px] font-bold uppercase mb-1">Quale Dark Pattern riconosci?</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Effetto su Quinn (Dopamina/Emozione):</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                    </div>
+                </div>
+
+                <!-- POST 2 -->
+                <div class="post-slot">
+                    <div class="analysis-box">
+                        <p class="text-[10px] font-bold uppercase mb-1">Meccanismo di Aggancio (Hook):</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Feedback Visivo/Sonoro:</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                    </div>
+                </div>
+
+                <!-- POST 3 -->
+                <div class="post-slot">
+                    <div class="analysis-box">
+                        <p class="text-[10px] font-bold uppercase mb-1">Bias Cognitivo sfruttato:</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Perché Quinn non riesce a smettere?</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                    </div>
+                </div>
+
+                <!-- POST 4 -->
+                <div class="post-slot">
+                    <div class="analysis-box">
+                        <p class="text-[10px] font-bold uppercase mb-1">Elemento di Gamification:</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Alternativa Etica (Riprogetta):</p>
+                        <div class="h-6 border-b border-gray-300"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- COLONNA 1: OSSERVAZIONE -->
-        <div class="space-y-6">
-            <section class="p-4 border-2 border-gray-200 rounded-lg">
-                <h3 class="font-bold text-lg mb-2 text-blue-800 underline uppercase italic">08:30 - Il Risveglio</h3>
-                <p class="text-sm italic text-gray-700">"Appena sveglio, prima ancora di scendere dal letto. La mano va da sola allo schermo. Controllo Zenith Mind. Spero di aver scalato la classifica della serenità..."</p>
-                <div class="mt-4 dopamine-loop p-3 rounded text-xs">
-                    <span class="font-bold">MECCANISMO:</span> Ricompensa Variabile (Variable Rewards).<br>
-                    <span class="font-bold">ANALISI:</span> L'incertezza (ci sarà un nuovo messaggio/like?) stimola il rilascio di dopamina nel nucleo accumbens.
-                </div>
-            </section>
-
-            <section class="sticky-note p-6 rounded shadow-sm">
-                <h4 class="handwritten text-2xl font-bold mb-2">Note di Quinn:</h4>
-                <p class="handwritten text-xl leading-relaxed">
-                    Perché mi sento in colpa se perdo una "streak"? 
-                    L'app mi ha mandato una notifica con un cagnolino triste. 
-                    Dicono che è per la mia 'salute', ma mi sento controllato.
+        <!-- PARTE DESTRA: TACCUINO DI RICERCA -->
+        <div class="flex flex-col space-y-6">
+            <div class="bg-yellow-100 p-6 rounded-lg shadow-sm transform -rotate-1 border border-yellow-200">
+                <h2 class="marker-font text-2xl text-yellow-800 mb-4">🔍 Note sul Campo</h2>
+                <p class="handwritten text-xl leading-relaxed mb-4">
+                    Quinn ha passato 45 minuti su questo feed oggi. 
+                    Qual è il momento esatto in cui ha perso il "senso del tempo"?
                 </p>
-            </section>
-
-            <section class="p-4 border-2 border-gray-200 rounded-lg bg-gray-50">
-                <h3 class="font-bold uppercase text-sm mb-3">Checklist del Design Persuasivo</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><input type="checkbox" checked> Infinite Scroll (Assenza di segnali di stop)</li>
-                    <li><input type="checkbox" checked> Notifiche Push (Prompt esterni)</li>
-                    <li><input type="checkbox" checked> Gamification (Streak e Classifiche)</li>
-                    <li><input type="checkbox" checked> Dark Patterns (Guilt Tripping)</li>
-                </ul>
-            </section>
-        </div>
-
-        <!-- COLONNA 2: ANALISI TECNICA -->
-        <div class="space-y-6 border-l border-r border-gray-100 px-4">
-            <div class="text-center py-4">
-                <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-2 flex items-center justify-center border-4 border-white shadow-lg overflow-hidden">
-                     <span class="text-4xl">📱</span>
-                </div>
-                <h3 class="font-bold uppercase">Analisi Anatomica dell'App</h3>
-            </div>
-
-            <div class="dark-pattern-alert p-4 rounded text-sm mb-4">
-                <h4 class="font-bold text-red-700 uppercase mb-1">⚠️ Dark Pattern Rilevato:</h4>
-                <p class="italic">"La tua prova gratuita scade tra 02:00. Se te ne vai, non avremo i fondi per nutrire la tua pace."</p>
-                <p class="mt-2 font-semibold">Tipo: Confirmshaming / Falsa Urgenza.</p>
-            </div>
-
-            <div class="p-4 border-dashed border-2 border-blue-300 rounded-lg">
-                <h4 class="font-bold text-blue-700 uppercase text-xs mb-2">Modello di Fogg (B=MAP)</h4>
-                <div class="grid grid-cols-3 gap-2 text-center text-[10px]">
-                    <div class="bg-blue-50 p-2 rounded"><strong>M</strong>otivazione<br>(Sociale/Sollievo)</div>
-                    <div class="bg-blue-50 p-2 rounded"><strong>A</strong>bilità<br>(Zero attrito/Swipe)</div>
-                    <div class="bg-blue-50 p-2 rounded"><strong>P</strong>rompt<br>(Notifiche/Punti)</div>
-                </div>
-            </div>
-
-            <div class="mt-8">
-                <h4 class="font-bold uppercase text-center mb-4 text-xs tracking-widest">Lo Schema del Loop</h4>
-                <svg viewBox="0 0 400 200" class="w-full">
-                    <circle cx="200" cy="100" r="80" fill="none" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="5,5" />
-                    <text x="200" y="30" text-anchor="middle" font-size="12" font-weight="bold">TRIGGER (Notifica)</text>
-                    <text x="310" y="100" text-anchor="middle" font-size="12" font-weight="bold">AZIONE</text>
-                    <text x="200" y="185" text-anchor="middle" font-size="12" font-weight="bold">RICOMPENSA</text>
-                    <text x="90" y="100" text-anchor="middle" font-size="12" font-weight="bold">INVESTIMENTO</text>
-                    <path d="M200 40 L280 90" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" />
-                </svg>
-            </div>
-        </div>
-
-        <!-- COLONNA 3: RIFLESSIONE E PROPOSTE -->
-        <div class="space-y-6">
-            <section class="p-4 border-2 border-gray-900 rounded-lg bg-black text-white">
-                <h3 class="font-bold text-lg mb-2 uppercase text-yellow-400">Riflessione Etica</h3>
-                <p class="text-xs leading-relaxed">
-                    In che modo l'app di Quinn sta violando la <strong>Competenza 12</strong> (Salute e Benessere)? 
-                    Sta barattando la salute mentale dell'utente per il tempo di permanenza (Engagement).
-                </p>
-            </section>
-
-            <div class="bg-white p-4 border-2 border-gray-200 rounded-lg">
-                <h4 class="font-bold uppercase text-xs mb-4">Proposta di Riprogettazione (Humane Design)</h4>
                 <div class="space-y-4">
-                    <div class="text-xs">
-                        <span class="block font-bold">1. Rimozione Dark Pattern:</span>
-                        <div class="h-12 w-full border border-gray-300 mt-1 rounded border-dotted flex items-center justify-center italic text-gray-400">Disegna qui la nuova interfaccia</div>
+                    <div class="border-b border-yellow-400 h-8"></div>
+                    <div class="border-b border-yellow-400 h-8"></div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-900 text-white p-6 rounded-lg flex-grow">
+                <h2 class="font-bold uppercase text-xs tracking-widest mb-4 opacity-70">Anatomia della Dipendenza</h2>
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-sm font-bold text-indigo-300 block mb-2">1. IL TRIGGER (Il Campanello)</span>
+                        <div class="w-full h-16 bg-white/10 rounded-md border border-white/20 p-2 text-[10px]">
+                            Descrivi la notifica che ha attirato Quinn:
+                        </div>
                     </div>
-                    <div class="text-xs">
-                        <span class="block font-bold">2. Introduzione Segnali di Stop:</span>
-                        <div class="h-12 w-full border border-gray-300 mt-1 rounded border-dotted flex items-center justify-center italic text-gray-400">Pausa consapevole dopo 15 min.</div>
+                    <div>
+                        <span class="text-sm font-bold text-indigo-300 block mb-2">2. LA RICOMPENSA (Il Piacere)</span>
+                        <div class="w-full h-16 bg-white/10 rounded-md border border-white/20 p-2 text-[10px]">
+                            Cosa ha ottenuto Quinn scorrendo? (Approvazione? Curiosità?)
+                        </div>
                     </div>
-                    <div class="text-xs">
-                        <span class="block font-bold">3. Trasparenza AI (Comp. 10):</span>
-                        <p class="text-[10px] text-gray-500 mt-1">Spiegare chiaramente perché l'algoritmo propone quel contenuto.</p>
+                    <div class="pt-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                            <span class="text-xs uppercase font-black">Livello di Manipolazione:</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-1 mt-2">
+                            <div class="h-4 border border-white/30"></div>
+                            <div class="h-4 border border-white/30"></div>
+                            <div class="h-4 border border-white/30"></div>
+                            <div class="h-4 border border-white/30"></div>
+                            <div class="h-4 border border-white/30"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <section class="p-4 bg-yellow-50 border-t-4 border-yellow-400">
-                <h4 class="font-bold text-sm">Verdetto della Classe:</h4>
-                <div class="flex gap-4 mt-2">
-                    <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded-full font-bold">ETICO: NO</span>
-                    <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-bold">MANIPOLATIVO: SÌ</span>
+            <div class="bg-gray-100 p-4 border-2 border-gray-300 rounded-lg">
+                <h3 class="font-black uppercase text-xs mb-2">Humane Design Check</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] border border-gray-400 px-2 py-1 rounded">Stop Signal</span>
+                    <span class="text-[10px] border border-gray-400 px-2 py-1 rounded opacity-30 italic">No Infinite Scroll</span>
+                    <span class="text-[10px] border border-gray-400 px-2 py-1 rounded">Transparenza AI</span>
                 </div>
-                <p class="text-[10px] mt-2 text-gray-600 font-mono">ID Sessione: QC-2026-ALPHA</p>
-            </section>
-        </div>
-
-        <!-- FOOTER -->
-        <div class="col-span-3 border-t-2 border-gray-900 pt-4 grid grid-cols-2">
-            <div class="text-xs text-gray-400 italic">
-                Riferimenti: Tristan Harris (Humane Technology), B.J. Fogg (Behavior Model), Nir Eyal (Hooked).
-            </div>
-            <div class="text-right text-xs font-bold uppercase tracking-tighter">
-                Educazione Civica / Liceo Scientifico - Progetto "Like o Life"
+                <div class="mt-4 text-[10px] italic text-gray-500">
+                    Progetto: EduCivica / Competenza Digitale 10 & 12
+                </div>
             </div>
         </div>
 
+        <!-- FILIGRANA ESTERNA -->
+        <div class="absolute bottom-4 left-4 text-[8px] text-gray-300 uppercase font-mono">
+            Property of ZENITH MIND CORP. - Do not reproduce without emotional consent.
+        </div>
     </div>
 
 </body>
