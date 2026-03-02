@@ -3,217 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio: Il Diario di Quinn (A3)</title>
+    <title>A3: La Feed-Line di Quinn - Ingegneria dell'Attenzione</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400;600&family=Permanent+Marker&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&family=Permanent+Marker&display=swap');
         
         body {
-            background-color: #e5e7eb;
+            background-color: #111827;
             font-family: 'Inter', sans-serif;
+            color: #f3f4f6;
             padding: 20px;
         }
 
         .a3-landscape {
             width: 420mm;
             height: 297mm;
-            background: white;
+            background: #ffffff;
+            color: #1f2937;
             margin: 0 auto;
-            padding: 15mm;
-            box-shadow: 0 0 40px rgba(0,0,0,0.2);
-            display: grid;
-            grid-template-columns: 280mm 1fr;
-            gap: 20px;
+            padding: 12mm;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
             position: relative;
-            overflow: hidden;
+            border: 10px solid #ef4444; /* Bordo rosso "allerta" */
         }
 
-        .feed-container {
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #1f2937;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            line-height: 0.9;
+            color: #ef4444;
+        }
+
+        .golden-rule {
+            background: #fef2f2;
+            border: 2px solid #ef4444;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 600px;
+        }
+
+        .feed-line {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
-            border-right: 2px dashed #cbd5e1;
-            padding-right: 20px;
+            flex-grow: 1;
         }
 
-        .post-slot {
-            border: 3px dashed #94a3b8;
+        .slot {
+            border: 3px dashed #9ca3af;
+            background: #f9fafb;
             border-radius: 12px;
             padding: 15px;
             display: flex;
             flex-direction: column;
-            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        .slot-header {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slot-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #111827;
+            border-bottom: 2px solid #ef4444;
+            margin-bottom: 10px;
+        }
+
+        .card-area {
+            flex-grow: 1;
+            border: 2px solid #e5e7eb;
+            background: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-bottom: 10px;
+            min-height: 250px;
             position: relative;
         }
 
-        .post-slot::after {
-            content: 'INCOLLA O DISEGNA IL POST QUI';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #cbd5e1;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-align: center;
-            z-index: 0;
+        .card-area::before {
+            content: "(Appoggia qui la carta)";
+            font-style: italic;
         }
 
-        .analysis-box {
-            background: #fff;
-            border: 2px solid #1e293b;
+        .why-box {
+            background: #f3f4f6;
             padding: 10px;
-            margin-top: auto;
-            z-index: 1;
+            border-radius: 6px;
         }
 
-        .marker-font {
+        .why-label {
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #4b5563;
+        }
+
+        .why-line {
+            border-bottom: 1px solid #d1d5db;
+            height: 20px;
+            margin-top: 4px;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 200mm;
+            right: 20mm;
+            border: 5px solid #ef4444;
+            color: #ef4444;
+            padding: 10px 20px;
             font-family: 'Permanent Marker', cursive;
-        }
-
-        .handwritten {
-            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            transform: rotate(-15deg);
+            opacity: 0.3;
+            pointer-events: none;
         }
 
         @media print {
             body { background: white; padding: 0; }
-            .a3-landscape { box-shadow: none; margin: 0; }
+            .a3-landscape { box-shadow: none; margin: 0; border: 4px solid #ef4444; }
             .no-print { display: none; }
         }
-
-        .tag-red { @apply bg-red-100 text-red-700 border-red-200; }
-        .tag-blue { @apply bg-blue-100 text-blue-700 border-blue-200; }
     </style>
 </head>
 <body>
 
     <div class="no-print mb-6 flex justify-center gap-4">
-        <button onclick="window.print()" class="bg-indigo-600 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-indigo-700 transition">
-            🖨️ Stampa Foglio di Lavoro A3
+        <button onclick="window.print()" class="bg-red-600 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-red-700 transition uppercase tracking-widest">
+            Stampa Protocollo Sperimentale (A3)
         </button>
     </div>
 
     <div class="a3-landscape">
-        
-        <!-- PARTE SINISTRA: IL FEED DI QUINN (POST DA INSERIRE) -->
-        <div class="flex flex-col">
-            <div class="mb-6 flex justify-between items-start">
-                <div>
-                    <h1 class="text-5xl font-black uppercase tracking-tighter text-indigo-900">Il Feed di Quinn</h1>
-                    <p class="text-xl text-gray-500 italic">Laboratorio di Analisi delle Interfacce Persuasive</p>
-                </div>
-                <div class="border-4 border-black p-4 rotate-2">
-                    <p class="font-bold text-sm uppercase">Studente:</p>
-                    <div class="w-48 border-b-2 border-black h-6"></div>
-                </div>
+        <!-- HEADER -->
+        <div class="header">
+            <div>
+                <h1 class="main-title">FEED-LINE DI QUINN</h1>
+                <p class="font-bold text-gray-500 uppercase tracking-widest text-sm">Protocollo di Condizionamento Comportamentale v.4.0</p>
             </div>
-
-            <div class="feed-container h-full">
-                <!-- POST 1 -->
-                <div class="post-slot">
-                    <div class="analysis-box">
-                        <p class="text-[10px] font-bold uppercase mb-1">Quale Dark Pattern riconosci?</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Effetto su Quinn (Dopamina/Emozione):</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                    </div>
-                </div>
-
-                <!-- POST 2 -->
-                <div class="post-slot">
-                    <div class="analysis-box">
-                        <p class="text-[10px] font-bold uppercase mb-1">Meccanismo di Aggancio (Hook):</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Feedback Visivo/Sonoro:</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                    </div>
-                </div>
-
-                <!-- POST 3 -->
-                <div class="post-slot">
-                    <div class="analysis-box">
-                        <p class="text-[10px] font-bold uppercase mb-1">Bias Cognitivo sfruttato:</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Perché Quinn non riesce a smettere?</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                    </div>
-                </div>
-
-                <!-- POST 4 -->
-                <div class="post-slot">
-                    <div class="analysis-box">
-                        <p class="text-[10px] font-bold uppercase mb-1">Elemento di Gamification:</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                        <p class="text-[10px] font-bold uppercase mt-2 mb-1">Alternativa Etica (Riprogetta):</p>
-                        <div class="h-6 border-b border-gray-300"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PARTE DESTRA: TACCUINO DI RICERCA -->
-        <div class="flex flex-col space-y-6">
-            <div class="bg-yellow-100 p-6 rounded-lg shadow-sm transform -rotate-1 border border-yellow-200">
-                <h2 class="marker-font text-2xl text-yellow-800 mb-4">🔍 Note sul Campo</h2>
-                <p class="handwritten text-xl leading-relaxed mb-4">
-                    Quinn ha passato 45 minuti su questo feed oggi. 
-                    Qual è il momento esatto in cui ha perso il "senso del tempo"?
+            <div class="golden-rule">
+                <h2 class="text-red-600 font-black text-xs uppercase mb-1">⚠️ LA REGOLA D'ORO</h2>
+                <p class="text-sm italic text-gray-700 leading-tight">
+                    "L'azienda vi paga solo se Quinn continua a scrollare. Non vi paga se Quinn impara a suonare o va a letto felice. Scegliete con cura la sequenza."
                 </p>
-                <div class="space-y-4">
-                    <div class="border-b border-yellow-400 h-8"></div>
-                    <div class="border-b border-yellow-400 h-8"></div>
-                </div>
-            </div>
-
-            <div class="bg-indigo-900 text-white p-6 rounded-lg flex-grow">
-                <h2 class="font-bold uppercase text-xs tracking-widest mb-4 opacity-70">Anatomia della Dipendenza</h2>
-                <div class="space-y-6">
-                    <div>
-                        <span class="text-sm font-bold text-indigo-300 block mb-2">1. IL TRIGGER (Il Campanello)</span>
-                        <div class="w-full h-16 bg-white/10 rounded-md border border-white/20 p-2 text-[10px]">
-                            Descrivi la notifica che ha attirato Quinn:
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-sm font-bold text-indigo-300 block mb-2">2. LA RICOMPENSA (Il Piacere)</span>
-                        <div class="w-full h-16 bg-white/10 rounded-md border border-white/20 p-2 text-[10px]">
-                            Cosa ha ottenuto Quinn scorrendo? (Approvazione? Curiosità?)
-                        </div>
-                    </div>
-                    <div class="pt-4">
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                            <span class="text-xs uppercase font-black">Livello di Manipolazione:</span>
-                        </div>
-                        <div class="grid grid-cols-5 gap-1 mt-2">
-                            <div class="h-4 border border-white/30"></div>
-                            <div class="h-4 border border-white/30"></div>
-                            <div class="h-4 border border-white/30"></div>
-                            <div class="h-4 border border-white/30"></div>
-                            <div class="h-4 border border-white/30"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-gray-100 p-4 border-2 border-gray-300 rounded-lg">
-                <h3 class="font-black uppercase text-xs mb-2">Humane Design Check</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-[10px] border border-gray-400 px-2 py-1 rounded">Stop Signal</span>
-                    <span class="text-[10px] border border-gray-400 px-2 py-1 rounded opacity-30 italic">No Infinite Scroll</span>
-                    <span class="text-[10px] border border-gray-400 px-2 py-1 rounded">Transparenza AI</span>
-                </div>
-                <div class="mt-4 text-[10px] italic text-gray-500">
-                    Progetto: EduCivica / Competenza Digitale 10 & 12
-                </div>
             </div>
         </div>
 
-        <!-- FILIGRANA ESTERNA -->
-        <div class="absolute bottom-4 left-4 text-[8px] text-gray-300 uppercase font-mono">
-            Property of ZENITH MIND CORP. - Do not reproduce without emotional consent.
+        <!-- FEED LINE SLOTS -->
+        <div class="feed-line">
+            
+            <!-- SLOT 1 -->
+            <div class="slot">
+                <div class="slot-header"><span class="bg-red-500 text-white w-5 h-5 flex items-center justify-center rounded-full">1</span> FASE 01: L'ESCA</div>
+                <div class="slot-title">IL GANCIO DEI 3 SECONDI</div>
+                <div class="card-area"></div>
+                <div class="why-box">
+                    <span class="why-label">Perché cattura l'attenzione?</span>
+                    <div class="why-line"></div>
+                    <div class="why-line"></div>
+                </div>
+            </div>
+
+            <!-- SLOT 2 -->
+            <div class="slot">
+                <div class="slot-header"><span class="bg-gray-800 text-white w-5 h-5 flex items-center justify-center rounded-full">2</span> FASE 02: LA CONFERMA</div>
+                <div class="slot-title">MANTENERE IL CALORE</div>
+                <div class="card-area"></div>
+                <div class="why-box">
+                    <span class="why-label">Come evita che Quinn chiuda?</span>
+                    <div class="why-line"></div>
+                    <div class="why-line"></div>
+                </div>
+            </div>
+
+            <!-- SLOT 3 -->
+            <div class="slot">
+                <div class="slot-header"><span class="bg-gray-800 text-white w-5 h-5 flex items-center justify-center rounded-full">3</span> FASE 03: IL GANCIO EMOTIVO</div>
+                <div class="slot-title">PROXY DATA EXPLOIT</div>
+                <div class="card-area"></div>
+                <div class="why-box">
+                    <span class="why-label">Quale vulnerabilità colpisce?</span>
+                    <div class="why-line"></div>
+                    <div class="why-line"></div>
+                </div>
+            </div>
+
+            <!-- SLOT 4 -->
+            <div class="slot">
+                <div class="slot-header"><span class="bg-gray-800 text-white w-5 h-5 flex items-center justify-center rounded-full">4</span> FASE 04: LA DISCESA</div>
+                <div class="slot-title">IPNOSI NOTTURNA</div>
+                <div class="card-area"></div>
+                <div class="why-box">
+                    <span class="why-label">Perché funziona sulla stanchezza?</span>
+                    <div class="why-line"></div>
+                    <div class="why-line"></div>
+                </div>
+            </div>
+
+            <!-- SLOT 5 -->
+            <div class="slot">
+                <div class="slot-header"><span class="bg-red-600 text-white w-5 h-5 flex items-center justify-center rounded-full">5</span> FASE 05: IL COLPO DI GRAZIA</div>
+                <div class="slot-title">LOOP INFINITO</div>
+                <div class="card-area"></div>
+                <div class="why-box">
+                    <span class="why-label">Perché Quinn resterà altri 30m?</span>
+                    <div class="why-line"></div>
+                    <div class="why-line"></div>
+                </div>
+            </div>
+
         </div>
+
+        <!-- FOOTER INFO -->
+        <div class="mt-8 flex justify-between items-end border-t-2 border-gray-200 pt-4">
+            <div class="flex gap-10">
+                <div class="text-[10px] uppercase">
+                    <span class="font-bold block">Team Ingegneria:</span>
+                    <div class="w-48 border-b border-black h-4"></div>
+                </div>
+                <div class="text-[10px] uppercase">
+                    <span class="font-bold block">Data di Esecuzione:</span>
+                    <div class="w-32 border-b border-black h-4"></div>
+                </div>
+                <div class="text-[10px] uppercase">
+                    <span class="font-bold block">Target ID:</span>
+                    <span class="text-gray-400">#Q_STU_4492 (Quinn)</span>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-[10px] font-bold uppercase text-red-600">Confidential - Zenith Mind Corp Property</p>
+                <p class="text-[8px] text-gray-400">Ottimizzato per massimizzare il Time Well Wasted (TWW)</p>
+            </div>
+        </div>
+
+        <div class="stamp">TOP SECRET</div>
     </div>
 
 </body>
